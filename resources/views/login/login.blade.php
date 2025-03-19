@@ -13,13 +13,15 @@
     </header>
     <main>
         <div>
-            <h2>Iniciar sesion</h2>
-            <form action="" method="post">
-                <label for=""></label>
-                <input type="text" name="" id="">
-                <label for=""></label>
-                <input type="password" name="" id="">
-                <button type="submit">Iniciar sesion</button>
+            <h2>Bienvenido al sistema de gestion</h2>
+            <form action="/login" method="post">
+                <div class="login">
+                    <label for=""> Username </label>
+                    <input type="text" name="username" id="">
+                    <label for=""> Password </label>
+                    <input type="password" name="password" id="">
+                    <button type="submit">Iniciar sesion</button>
+                </div>
             </form>
         </div>
     </main>

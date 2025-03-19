@@ -10,5 +10,10 @@ class UserRepository
     {
         return User::all();
     }
+
+    public function findByUsernameWithRol($username)
+    {
+        return User::where('username', $username)->with('rol')->first();
+    }
 }
 

@@ -20,12 +20,15 @@ class UserService
         return $this->userRepository->all();
     }
 
-    public function validateUser($credentials)
+    public function login(array $credentials)
     {
+        // Intentar autenticar al usuario
         if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return true;
+            $user = Auth::user(); // Obtener el usuario autenticado
+            return $user->userRepository->findByUsernameWithRol($credentials['username']);
         }
-        return false;
+
+        return null; // Retornar null si la autenticación falla
     }
+
 }
