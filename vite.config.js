@@ -8,4 +8,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        proxy: {
+            '/': 'http://localhost/ims',  // Asegúrate de que el puerto coincida
+        },
+    },
 });

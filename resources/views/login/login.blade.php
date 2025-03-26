@@ -14,14 +14,20 @@
     <main>
         <div>
             <h2>Bienvenido al sistema de gestion</h2>
-            <form action="/login" method="post">
+            <form action="ims/public/login" method="POST">
+                @csrf
                 <div class="login">
                     <label for=""> Username </label>
                     <input type="text" name="username" id="">
                     <label for=""> Password </label>
                     <input type="password" name="password" id="">
-                    <button type="submit">Iniciar sesion</button>
+                    <button type="submit" value="login">Iniciar sesion</button>
                 </div>
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
             </form>
         </div>
     </main>

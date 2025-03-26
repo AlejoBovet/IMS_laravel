@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
-
 class LoginController extends Controller
 {
     protected $Userservice;
@@ -17,26 +16,29 @@ class LoginController extends Controller
     }
 
     public function show(){
-        return view('auth.login');
+        return view('login.login');
     }
 
     public function login(LoginRequest $request){
 
-        $credentials = $request->only('username', 'password');
+        // Obtener las credenciales del formulario
+        $credentials = $request->getCredentials();
 
-        $rol = $this->Userservice->login($credentials);
+        // Intentar autenticar al usuario a través del servicio
+        $user = $this->Userservice->login($credentials);
 
-        if ($rol) {
-            // Redirigir según el rol
-            if ($rol->nombre === 'admin') {
-                return redirect()->route('admin.home');
-            } elseif ($rol->nombre === 'user') {
-                return redirect()->route('user.home');
-            }
+        // Si las credenciales son inválidas, redirigir al login con un mensaje de error
+        if (!$user) {
+            return redirect('/login')->with('error', 'Credenciales inválidas');
         }
 
-        return back()->withErrors(['login' => 'Credenciales inválidas']);
+        return $this->authenticated($request, $user);
+        
+    }
 
+    public function authenticated(Request $request, $user)
+    {
+        return 'funciona'; 
     }
 
 }

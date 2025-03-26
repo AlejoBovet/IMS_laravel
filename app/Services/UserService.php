@@ -23,12 +23,13 @@ class UserService
     public function login(array $credentials)
     {
         // Intentar autenticar al usuario
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user(); // Obtener el usuario autenticado
-            return $user->userRepository->findByUsernameWithRol($credentials['username']);
+        if (!Auth::attempt($credentials)) {
+            return false;
         }
+        
+        // Obtener el usuario autenticado
+        return Auth::user();
 
-        return null; // Retornar null si la autenticación falla
     }
 
 }
